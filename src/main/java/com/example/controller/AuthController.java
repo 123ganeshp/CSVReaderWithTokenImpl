@@ -1,7 +1,7 @@
 package com.example.controller;
 
-import com.example.entity.JwtRequest;
 import com.example.entity.JwtResponse;
+import com.example.entity.JwtRequest;
 import com.example.security.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,14 +39,14 @@ public class AuthController {
                 .userDetails(userDetails)
                 .build();
 
-        return new ResponseEntity<>(response,HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     private void doAuthenticate(String username, String password) throws Exception {
-        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username,password);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, password);
         try {
             authenticationManager.authenticate(authentication);
-        }catch (BadCredentialsException e) {
+        } catch (BadCredentialsException e) {
             throw new Exception("Invalid Username or Password...");
         }
     }
@@ -55,6 +55,6 @@ public class AuthController {
     public ResponseEntity<UserDetails> getCurrentUser(Principal principal) {
         String name = principal.getName();
         return new ResponseEntity<>(userDetailsService.loadUserByUsername(name), HttpStatus.OK);
-    }
 
+    }
 }
